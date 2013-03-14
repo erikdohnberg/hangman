@@ -7,7 +7,7 @@ attr_accessor :word, :chances, :wboard, :word_arrayed, :guesses, :guess
 attr_reader :board, :result_index, :array_word
 
   	def initialize(word)
-   	 	puts "Welcome to our hangman game! Please guess a letter to start"
+   	 	puts "Welcome to our hangman game! Please guess a letter to start."
    	 	puts "-----------------------------------"
  		@word = word.downcase
  		@chances = 8
@@ -36,7 +36,7 @@ attr_reader :board, :result_index, :array_word
 	def guess!(letter)
 		@guess = letter.downcase
 		if guesses.include?(@guess)
-			puts "Please enter a different guess, Jack!"
+			puts "Please enter a different guess."
 		elsif (guess.class == String) && (@guess.length == 1) && (true if guess.match(/[a-z]/) != nil)
 			if @word_arrayed.include?(@guess)
 				good_guess

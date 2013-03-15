@@ -48,11 +48,6 @@ class Hangman
 			end
 		else
 			raise InvalidGuessException.new("Please enter a one letter string!")
-			begin
-				@@game.guess!(letter)
-			rescue Hangman::InvalidGuessException => e
-				puts e.message("Please enter a one letter string.")
-			end
 		end
 	end
 

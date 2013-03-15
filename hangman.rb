@@ -39,11 +39,7 @@ class Hangman
 	def guess!(letter)
 		@guess = letter.downcase
 		if guesses.include?(@guess)
-			begin
-				game.guess!(letter)
-			rescue Hangman::InvalidGuessException => e
-				puts e.message("Please enter a different guess.")
-			end
+			raise InvalidGuessException.new("You've already guessed that letter! Enter a new letter!")
 		elsif (guess.class == String) && (@guess.length == 1) && (true if guess.match(/[a-z]/) != nil)
 			if @word_arrayed.include?(@guess)
 				good_guess
@@ -51,6 +47,7 @@ class Hangman
 				bad_guess
 			end
 		else
+			raise InvalidGuessException.new("Please enter a one letter string!")
 			begin
 				@@game.guess!(letter)
 			rescue Hangman::InvalidGuessException => e

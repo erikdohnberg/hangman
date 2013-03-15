@@ -43,7 +43,11 @@ class HangmanPlay
 		puts ""
 		puts "Enter guess:"
 		letter = gets.chomp
-		@@game.guess!(letter)
+		begin
+			@@game.guess!(letter)			
+		rescue Hangman::InvalidGuessException => e
+			puts e.message
+		end
 		puts ""
 		puts ""
 		puts "-----------------------------------"

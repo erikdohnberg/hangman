@@ -3,8 +3,11 @@ class Hangman
 	#It is only concerned with one run through of the game
 	#It is not responsible for human interaction
 
-attr_accessor :word, :chances, :wboard, :word_arrayed, :guesses, :guess
-attr_reader :board, :result_index, :array_word
+	class InvalidGuessException < Exception  
+	end
+	
+	attr_accessor :word, :chances, :wboard, :word_arrayed, :guesses, :guess
+	attr_reader :board, :result_index, :array_word
 
   	def initialize(word)
    	 	puts "Welcome to our hangman game! Please guess a letter to start."
@@ -36,7 +39,11 @@ attr_reader :board, :result_index, :array_word
 	def guess!(letter)
 		@guess = letter.downcase
 		if guesses.include?(@guess)
-			puts "Please enter a different guess."
+			begin
+				game.guess!(letter)
+			rescue Hangman::InvalidGuessException => e
+				puts e.message("Please enter a different guess.")
+			end
 		elsif (guess.class == String) && (@guess.length == 1) && (true if guess.match(/[a-z]/) != nil)
 			if @word_arrayed.include?(@guess)
 				good_guess
@@ -44,7 +51,11 @@ attr_reader :board, :result_index, :array_word
 				bad_guess
 			end
 		else
-			puts "Please enter a one letter string."
+			begin
+				@@game.guess!(letter)
+			rescue Hangman::InvalidGuessException => e
+				puts e.message("Please enter a one letter string.")
+			end
 		end
 	end
 
